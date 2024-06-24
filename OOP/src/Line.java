@@ -1,4 +1,9 @@
-public class Line
+interface Ilengther
+{
+    public double length();
+}
+
+public class Line implements Ilengther
 {
     //private int x1, y1, x2, y2;
     private Point start, end;
@@ -17,7 +22,7 @@ public class Line
         this.start = new Point(A1.getX(), A1.getY());
         this.end = new Point(A2.getX(), A2.getY());
     }
-    public int length()
+    public double length()
     {
         int res=0;
         res = (int) Math.round(Math.sqrt(Math.pow((start.getX()-end.getX()), 2) + Math.pow((start.getY()-end.getY()), 2)));
