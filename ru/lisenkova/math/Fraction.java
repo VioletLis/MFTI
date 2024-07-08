@@ -1,5 +1,10 @@
 package ru.lisenkova.math;
-public class Fraction
+
+import ru.lisenkova.geometry.Point;
+
+import java.util.Objects;
+
+public class Fraction implements Cloneable
 {
     private int x, y; // числитель, знаменатель
 
@@ -34,8 +39,33 @@ public class Fraction
         return this.y;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass()!= obj.getClass()) return false;
+        Fraction a = (Fraction) obj;
+        return ((this.x == a.x) && (this.y == a.y));
+    }
 
-     private static void checkY(int y) {
+    @Override
+    public Fraction clone()  {
+        try {
+            Fraction res = (Fraction) super.clone();
+            return res;
+        }
+        catch (CloneNotSupportedException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
+
+
+    private static void checkY(int y) {
          if(y<=0)
              throw new IllegalArgumentException("denominator (y) must be positive");
      }

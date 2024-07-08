@@ -1,9 +1,12 @@
 package ru.lisenkova.geometry;
 
+import ru.lisenkova.math.Fraction;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class PolyLine implements Lengthable
+public class PolyLine implements Lengthable, Cloneable
 {
     List<Point> list;
 
@@ -20,7 +23,37 @@ public class PolyLine implements Lengthable
     {
         this.list.addAll(List.of(points));
     }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        PolyLine polyLine = (PolyLine) obj;
+        if (this.list.size() != polyLine.list.size()) return false;
+        return Objects.equals(list, polyLine.list);
+    }
 
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(list);
+    }
+
+    @Override
+    public PolyLine clone() {
+        try {
+            PolyLine res = (PolyLine) super.clone();
+            res.list = new ArrayList<>();
+            for(int i=0;i<this.list.size();i++)
+            {
+                res.list.add(this.list.get(i).clone());
+            }
+            return res;
+        }
+        catch (CloneNotSupportedException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
 
     public int length()
     {

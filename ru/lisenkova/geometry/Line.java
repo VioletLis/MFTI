@@ -1,6 +1,10 @@
 package ru.lisenkova.geometry;
 
-public class Line implements Lengthable
+import ru.lisenkova.math.Fraction;
+
+import java.util.Objects;
+
+public class Line implements Lengthable, Cloneable
 {
     //private int x1, y1, x2, y2;
     private Point start, end;
@@ -21,6 +25,31 @@ public class Line implements Lengthable
         int res=0;
         res = (int) Math.round(Math.sqrt(Math.pow((start.getX()-end.getX()), 2) + Math.pow((start.getY()-end.getY()), 2)));
         return res;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if(obj == null || getClass()!= obj.getClass()) return false;
+        Line a = (Line) obj;
+        return this.start.equals(a.start) && this.end.equals(a.end);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(start, end);
+    }
+    @Override
+    public Line clone() {
+        try {
+            Line res = (Line) super.clone();
+            res.start = this.start.clone();
+            res.end = this.end.clone();
+            return res;
+        }
+        catch (CloneNotSupportedException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     public Point getStart()
