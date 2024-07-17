@@ -14,12 +14,22 @@ public class City implements Cloneable{
     {
         this.name = name;
     }
+
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass()!= obj.getClass()) return false;
         City city = (City) obj;
-        return Objects.equals(name, city.name) && Objects.equals(roads, city.roads);
+
+        List<Road> thisRoads = this.getRoads();
+        List<Road> otherRoads = city.getRoads();
+        if(thisRoads.size()!=otherRoads.size()) return false;
+
+        for(Road road : thisRoads)
+        {
+            if(!otherRoads.contains(road)) return false;
+        }
+        return true;
     }
 
     @Override
@@ -77,5 +87,10 @@ public class City implements Cloneable{
 
     public List<Road> getRoads() {
         return new ArrayList<>(roads);
+    }
+    @Override
+    public String toString()
+    {
+        return "Город " + name + ", пути назначения и стоимость " + roads.toString();
     }
 }

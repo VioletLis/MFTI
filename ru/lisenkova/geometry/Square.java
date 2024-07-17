@@ -3,7 +3,7 @@ package ru.lisenkova.geometry;
 public class Square extends Figure
 {
     private final int side;
-    public Square(Point point, int side)
+    public Square(Point2D point, int side)
     {
         super(point);
         if (side <= 0)

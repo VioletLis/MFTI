@@ -1,37 +1,43 @@
 package ru.lisenkova.geometry;
 
-import ru.lisenkova.math.Fraction;
-
 import java.util.Objects;
 
-public class Line implements Lengthable, Cloneable
+public class Line<T extends Point2D> implements Lengthable, Cloneable
 {
     //private int x1, y1, x2, y2;
-    private Point start, end;
-
-    public Line(int x1, int y1, int x2, int y2)
+    private T start, end;
+    private Line(T start, T end)
     {
-        this.start= new Point(x1,y1);
-        this.end=new Point(x2,y2);
+        setStart(start);
+        setEnd(end);
+    }
+    public static<K extends Point2D> Line<K> create(K start, K end)
+    {
+        return new Line<>(start, end);
+    }
+    public static Line<Point2D> create(int x1, int y1, int x2, int y2)
+    {
+        Point2D start = new Point2D(x1, y1);
+        Point2D end = new Point2D(x2, y2);
+        return new Line<>(start, end);
+    }
+    public static Line<Point3D> create(int x1, int y1, int z1, int x2, int y2, int z2)
+    {
+        Point3D start = new Point3D(x1, y1, z1);
+        Point3D end = new Point3D(x2, y2, z2);
+        return new Line<>(start, end);
     }
 
-    public Line(Point A1, Point A2)
-    {
-        this.start = new Point(A1.getX(), A1.getY());
-        this.end = new Point(A2.getX(), A2.getY());
-    }
     public int length()
     {
-        int res=0;
-        res = (int) Math.round(Math.sqrt(Math.pow((start.getX()-end.getX()), 2) + Math.pow((start.getY()-end.getY()), 2)));
-        return res;
+        return (this.start).lengthTo(this.end);
     }
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if(obj == null || getClass()!= obj.getClass()) return false;
         Line a = (Line) obj;
-        return this.start.equals(a.start) && this.end.equals(a.end);
+        return Objects.equals(this.start,a.start) && Objects.equals(this.end,a.end);
     }
 
     @Override
@@ -39,7 +45,7 @@ public class Line implements Lengthable, Cloneable
         return Objects.hash(start, end);
     }
     @Override
-    public Line clone() {
+    public Line<T> clone() {
         try {
             Line res = (Line) super.clone();
             res.start = this.start.clone();
@@ -52,40 +58,30 @@ public class Line implements Lengthable, Cloneable
         }
     }
 
-    public Point getStart()
+    public T getStart()
     {
-        return new Point(start.getX(), start.getY());
+        return start;
     }
-    public Point getEnd()
+    public T getEnd()
     {
-        return new Point(end.getX(), end.getY());
-    }
-
-    public void setStart(Point startNew)
-    {
-        start.setX(startNew.getX());
-        start.setY(startNew.getY());
-    }
-    public void setStart(int x1,int y1)
-    {
-        start.setX(x1);
-        start.setY(y1);
-    }
-    public void setEnd(int x2,int y2)
-    {
-        end.setX(x2);
-        end.setY(y2);
+        return end;
     }
 
-    public void setEnd(Point endNew)
+    public void setStart(T startNew)
     {
-        end.setX(endNew.getX());
-        end.setY(endNew.getY());
+        if (startNew == null) throw new IllegalArgumentException("Line can't have null-elements");
+        this.start = (T) startNew.clone();
+    }
+
+    public void setEnd(T endNew)
+    {
+        if (endNew == null) throw new IllegalArgumentException("Line can't have null-elements");
+        this.end = (T) endNew.clone();
     }
 
     @Override
     public String toString()
     {
-        return "Линия от {"+start.getX()+";"+start.getY()+"} до {"+end.getX()+";"+end.getY()+"}";
+        return "Линия от "+start.toString()+" до "+end.toString();
     }
 }

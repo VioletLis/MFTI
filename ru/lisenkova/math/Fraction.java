@@ -1,7 +1,5 @@
 package ru.lisenkova.math;
 
-import ru.lisenkova.geometry.Point;
-
 import java.util.Objects;
 
 public class Fraction implements Cloneable

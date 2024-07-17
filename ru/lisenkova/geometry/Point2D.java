@@ -1,14 +1,11 @@
 package ru.lisenkova.geometry;
 
-import ru.lisenkova.math.Fraction;
-
 import java.util.Objects;
 
-public class Point implements Cloneable
+public class Point2D implements Cloneable
 {
     private int x,y;
-
-    public Point(int x, int y)
+    public Point2D(int x, int y)
     {
         this.x=x;
         this.y=y;
@@ -32,7 +29,7 @@ public class Point implements Cloneable
     {
         return y;
     }
-    public int lengthTo(Point target)
+    public int lengthTo(Point2D target)
     {
         int i1=this.getX() - target.getX();
         int i2=this.getY() - target.getY();
@@ -43,7 +40,7 @@ public class Point implements Cloneable
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if(obj == null || getClass()!= obj.getClass()) return false;
-        Point a = (Point) obj;
+        Point2D a = (Point2D) obj;
         return  (this.x == a.x && this.y == a.y);
     }
 
@@ -52,9 +49,9 @@ public class Point implements Cloneable
         return Objects.hash(x, y);
     }
     @Override
-    public Point clone()  {
+    public Point2D clone()  {
         try {
-            Point res = (Point) super.clone();
+            Point2D res = (Point2D) super.clone();
             return res;
         }
         catch (CloneNotSupportedException e)

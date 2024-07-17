@@ -3,7 +3,7 @@ package ru.lisenkova.geometry;
 public class Circle extends Figure
 {
     private final int radius;
-    public Circle(Point point,int radius)
+    public Circle(Point2D point, int radius)
     {
         super(point);
         if (radius <= 0)

@@ -2,12 +2,12 @@ package ru.lisenkova.geometry;
 
 abstract public class Figure implements Areaable
 {
-    Point point;
+    Point2D point;
     //int[] side;
 
-    public Figure(Point point)
+    public Figure(Point2D point)
     {
-        this.point = new Point(point.getX(), point.getY());
+        this.point = new Point2D(point.getX(), point.getY());
     }
 
     public abstract double area();

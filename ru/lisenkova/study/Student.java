@@ -3,16 +3,24 @@ package ru.lisenkova.study;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Student
+
+public class Student implements Comparable<Student>
 {
     private String name;
     private List<Integer> marks=new ArrayList<>();
 
-    Student(String name, int ... marks)
+    public Student(String name, int... marks)
     {
         this.name=name;
         setMarks(marks);
 
+    }
+    @Override
+    public int compareTo(Student studentCompared)
+    {
+        if (this.averageMark() > studentCompared.averageMark()) return 1;
+        if (this.averageMark() < studentCompared.averageMark()) return -1;
+        return 0;
     }
     public void checkMarks(int ... arrMarks)
     {
@@ -55,7 +63,7 @@ public class Student
     }
     public double averageMark()                 //подсчет средней оценки
     {
-       int average=0;
+       double average=0;
         if (this.marks.isEmpty()) return 0;
         for (int i : marks)
         {

@@ -28,9 +28,8 @@ public class Road implements Cloneable{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Road road = (Road) o;
-        return cost == road.cost && Objects.equals(destination, road.destination);
+        if (!(o instanceof Road road)) return false;
+        return destination==road.destination;
     }
 
     @Override
@@ -48,5 +47,11 @@ public class Road implements Cloneable{
     @Override
     public int hashCode() {
         return Objects.hash(destination, cost);
+    }
+
+    @Override
+    public String toString()
+    {
+        return destination.getName() + ": " + cost;
     }
 }

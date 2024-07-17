@@ -3,7 +3,7 @@ package ru.lisenkova.geometry;
 public class Rectangle extends Figure
 {
     private final int width, length;
-    public Rectangle(Point point, int width, int length)
+    public Rectangle(Point2D point, int width, int length)
     {
         super(point);
         if ((width <= 0) ||(length<=0))
