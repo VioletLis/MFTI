@@ -100,17 +100,14 @@ public class Methods {
         box.set(new Point3D(r.nextInt(20),r.nextInt(20),r.nextInt(20)));
     }
 
-   // public static void setList(List<? super Integer> list)  //5.2.4
     public static <K extends Number> List<K> setList(List<K> list)
     {
-        //List<K> list1 = new ArrayList<>();
         for (int i=0; i < 100; i++) list.add((K) Integer.valueOf(i+1));
         return list;
     }
 
     public static void putInList(List<? super Integer> list)  //5.2.4
     {
-        //List<K> list1 = new ArrayList<>();
         for (int i=0; i < 100; i++) list.add((i+1));
     }
 
