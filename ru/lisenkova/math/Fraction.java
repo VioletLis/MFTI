@@ -2,18 +2,33 @@ package ru.lisenkova.math;
 
 import java.util.Objects;
 
-public class Fraction implements Cloneable
+public class Fraction implements Cloneable, Fractionable
 {
-    private int x, y; // числитель, знаменатель
+    private int num, denum; // числитель, знаменатель
 
-    public Fraction(int x, int y) {
-        checkY(y);
-        this.x=x;
-        this.y=y;
+    public Fraction(int num, int denum) {
+        checkDenum(denum);
+        this.num=num;
+        this.denum =denum;
     }
     public Fraction(int x){
-        this.x = x;
-        this.y = 1;
+        this.num = x;
+        this.denum = 1;
+    }
+    public void setNum(int num)
+    {
+        this.num = num;
+    }
+    public void setDenum(int denum)
+    {
+        this.denum = denum;
+    }
+
+    @Override
+    public double doubleValue()
+    {
+        System.out.println("invoke doubleValue");
+        return (double) this.num /this.denum;
     }
     public Fraction(double z){
         String s = String.valueOf(z);
@@ -25,24 +40,23 @@ public class Fraction implements Cloneable
         }
         int num = (int) Math.round(z);
         int gdc=findGCD(num,denom);
-        this.x = num/gdc;
-        this.y = denom/gdc;
+        this.num = num/gdc;
+        this.denum = denom/gdc;
     }
-    public int getX()
+    public int getNum()
     {
-        return this.x;
+        return this.num;
     }
-    public  int getY()
+    public  int getDenum()
     {
-        return this.y;
+        return this.denum;
     }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass()!= obj.getClass()) return false;
         Fraction a = (Fraction) obj;
-        return ((this.x == a.x) && (this.y == a.y));
+        return ((this.num == a.num) && (this.denum == a.denum));
     }
 
     @Override
@@ -59,19 +73,19 @@ public class Fraction implements Cloneable
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y);
+        return Objects.hash(num, denum);
     }
 
 
-    private static void checkY(int y) {
+    private static void checkDenum(int y) {
          if(y<=0)
              throw new IllegalArgumentException("denominator (y) must be positive");
      }
 
     private static Fraction simplifyD(Fraction A2) {
-        int gcd=findGCD(A2.x,A2.y);
-        A2.x=A2.x/gcd;
-        A2.y=A2.y/gcd;
+        int gcd=findGCD(A2.num,A2.denum);
+        A2.num=A2.num/gcd;
+        A2.denum =A2.denum /gcd;
         return A2;
     }
     private static int findGCD(int num1, int num2)
@@ -83,56 +97,49 @@ public class Fraction implements Cloneable
     }
     @Override
     public String toString() {
-        return this.x + "/" + this.y;
+        return this.num + "/" + this.denum;
     }
 
     public Fraction sum(Fraction A2) {
-        Fraction A1 = new Fraction(this.x, this.y);
-        // (A1.x * A2.y + A2.x * A1.y) / (A1.y*A2.y);
-        Fraction summa = new Fraction(this.x * A2.y + A2.x * this.y, this.y*A2.y);
+        Fraction A1 = new Fraction(this.num, this.denum);
+        Fraction summa = new Fraction(this.num * A2.denum + A2.num * this.denum, this.denum *A2.denum);
         simplifyD(summa);
         return summa;
     }
 
     public Fraction sum(int z) {
-        Fraction A1 = new Fraction(this.x, this.y);
-        // (A1.x * A2.y + A2.x * A1.y) / (A1.y*A2.y);
-        Fraction summa = new Fraction(this.x  + z * this.y, this.y);
+        Fraction A1 = new Fraction(this.num, this.denum);
+        Fraction summa = new Fraction(this.num  + z * this.denum, this.denum);
         return summa;
     }
 
     public Fraction minus(Fraction A2) {
-        // (A1.x * A2.y - A2.x * A1.y) / (A1.y*A2.y);
-        Fraction minus = new Fraction(this.x * A2.y - A2.x * this.y, this.y*A2.y);
+        Fraction minus = new Fraction(this.num * A2.denum - A2.num * this.denum, this.denum *A2.denum);
         simplifyD(minus);
         return minus;
     }
 
     public Fraction minus(int z) {
-        // (A1.x * A2.y - A2.x * A1.y) / (A1.y*A2.y);
-        Fraction minus = new Fraction(this.x  - z * this.y, this.y);
+        Fraction minus = new Fraction(this.num  - z * this.denum, this.denum);
         simplifyD(minus);
         return minus;
     }
 
     public Fraction multiply(Fraction A2) {
-        // (A1.x * A2.x ) / (A1.y*A2.y);
-        Fraction multyD = new Fraction((this.x * A2.x), this.y*A2.y);
+        Fraction multyD = new Fraction((this.num * A2.num), this.denum *A2.denum);
         simplifyD(multyD);
         return multyD;
     }
 
     public Fraction multiply(int z) {
-        // (A1.x * A2.x ) / (A1.y*A2.y);
-        Fraction multyD = new Fraction((this.x * z), this.y);
+        Fraction multyD = new Fraction((this.num * z), this.denum);
         simplifyD(multyD);
         return multyD;
     }
 
     public Fraction div(Fraction A2) {
-        // (A1.x * A2.x ) / (A1.y*A2.y);
-        int t1 = this.x * A2.y;
-        int t2 = this.y * A2.x;
+        int t1 = this.num * A2.denum;
+        int t2 = this.denum * A2.num;
         if (t2<0)
         {
             t1 *= -1;
@@ -146,9 +153,8 @@ public class Fraction implements Cloneable
     }
 
     public Fraction div(int z) {
-        // (A1.x * A2.x ) / (A1.y * A2.y);
-        int t1=this.x;
-        int t2=this.y*z;
+        int t1=this.num;
+        int t2=this.denum *z;
         if (z==0)
             throw new ArithmeticException("Divide by 0");
         else if (z<0)

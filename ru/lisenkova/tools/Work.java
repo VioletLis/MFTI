@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 import java.util.stream.Collector;
 
 public class Work {
@@ -39,6 +41,15 @@ public class Work {
             res = summator.make(res,list.get(i));
         }
         return Storage.create(res);
+    }
+    public static <T, P> P collect(List<T> list, Supplier<P> creator, BiConsumer<P,T> collector)
+    {
+        P result = creator.get();
+        for (T element : list)
+        {
+            collector.accept(result, element);
+        }
+        return result;
     }
 //    public static <T,P> Collection<T> collect(List<T> list, Collector<T,?,P> type)
 //    {

@@ -12,7 +12,6 @@ import java.util.Random;
 
 import static java.lang.Integer.parseInt;
 import static java.lang.Math.pow;
-import static java.lang.Math.random;
 
 
 public class Methods {
@@ -69,7 +68,7 @@ public class Methods {
 
 
         }
-        double result0 = (double) res.getX()/ res.getY();
+        double result0 = (double) res.getNum()/ res.getDenum();
        // if (!bigIntegers.isEmpty()) return ""+resBig.add(new BigInteger(""+(float)result0));
         result0+=resBig.doubleValue();
         return ""+result0;
