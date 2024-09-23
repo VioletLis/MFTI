@@ -2,7 +2,7 @@ package ru.lisenkova.geometry;
 
 import java.util.Objects;
 
-public class Line<T extends Point2D> implements Lengthable, Cloneable
+public class Line<T extends Point> implements Lengthable, Cloneable
 {
     //private int x1, y1, x2, y2;
     private T start, end;
@@ -11,14 +11,14 @@ public class Line<T extends Point2D> implements Lengthable, Cloneable
         setStart(start);
         setEnd(end);
     }
-    public static<K extends Point2D> Line<K> create(K start, K end)
+    public static<K extends Point> Line<K> create(K start, K end)
     {
         return new Line<>(start, end);
     }
-    public static Line<Point2D> create(int x1, int y1, int x2, int y2)
+    public static Line<Point> create(int x1, int y1, int x2, int y2)
     {
-        Point2D start = new Point2D(x1, y1);
-        Point2D end = new Point2D(x2, y2);
+        Point start = new Point(x1, y1);
+        Point end = new Point(x2, y2);
         return new Line<>(start, end);
     }
     public static Line<Point3D> create(int x1, int y1, int z1, int x2, int y2, int z2)

@@ -74,7 +74,7 @@ public class Methods {
         return ""+result0;
     }
 
-    public static <T extends Point2D> void addStartX(Line<T> line) //5.2.1
+    public static <T extends Point> void addStartX(Line<T> line) //5.2.1
     {
         line.getStart().setX((line.getStart().getX()+10));
     }

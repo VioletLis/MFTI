@@ -3,7 +3,7 @@ import java.util.List;
 
 public class ClosedPolyLine extends PolyLine {
 
-    public ClosedPolyLine(List<Point2D> list)
+    public ClosedPolyLine(List<Point> list)
     {
         super(list);
     }

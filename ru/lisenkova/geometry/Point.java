@@ -2,10 +2,10 @@ package ru.lisenkova.geometry;
 
 import java.util.Objects;
 
-public class Point2D implements Cloneable
+public class Point implements Cloneable
 {
     private int x,y;
-    public Point2D(int x, int y)
+    public Point(int x, int y)
     {
         this.x=x;
         this.y=y;
@@ -29,7 +29,7 @@ public class Point2D implements Cloneable
     {
         return y;
     }
-    public int lengthTo(Point2D target)
+    public int lengthTo(Point target)
     {
         int i1=this.getX() - target.getX();
         int i2=this.getY() - target.getY();
@@ -40,7 +40,7 @@ public class Point2D implements Cloneable
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if(obj == null || getClass()!= obj.getClass()) return false;
-        Point2D a = (Point2D) obj;
+        Point a = (Point) obj;
         return  (this.x == a.x && this.y == a.y);
     }
 
@@ -49,9 +49,9 @@ public class Point2D implements Cloneable
         return Objects.hash(x, y);
     }
     @Override
-    public Point2D clone()  {
+    public Point clone()  {
         try {
-            Point2D res = (Point2D) super.clone();
+            Point res = (Point) super.clone();
             return res;
         }
         catch (CloneNotSupportedException e)

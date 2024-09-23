@@ -2,16 +2,16 @@ package ru.lisenkova.geometry;
 
 public class Triangle extends Figure
 {
-    private final Point2D p2, p3;
+    private final Point p2, p3;
 
-    public Triangle(Point2D p1, Point2D p2, Point2D p3)
+    public Triangle(Point p1, Point p2, Point p3)
     {
         super(p1);
         checkSides(p1,p2,p3);
-        this.p2 = new Point2D(p2.getX(),p2.getY());
-        this.p3 = new Point2D(p3.getX(),p3.getY());
+        this.p2 = new Point(p2.getX(),p2.getY());
+        this.p3 = new Point(p3.getX(),p3.getY());
     }
-    public void checkSides(Point2D p1, Point2D p2, Point2D p3) // сумма длин двух сторон треугольника должна быть строго больше длины третьей
+    public void checkSides(Point p1, Point p2, Point p3) // сумма длин двух сторон треугольника должна быть строго больше длины третьей
     {
         double a,b,c;
         a = Math.sqrt(Math.pow(p1.getX()- p2.getX(),2)+Math.pow(p1.getY()-p2.getY(),2));

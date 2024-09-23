@@ -2,7 +2,7 @@ package ru.lisenkova.geometry;
 
 import java.util.Objects;
 
-public class Point3D extends Point2D implements Cloneable{
+public class Point3D extends Point implements Cloneable{
     private int z;
     public Point3D(int x, int y, int z)
     {

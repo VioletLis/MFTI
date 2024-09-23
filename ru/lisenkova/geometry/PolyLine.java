@@ -6,18 +6,18 @@ import java.util.Objects;
 
 public class PolyLine implements Lengthable, Cloneable
 {
-    List<Point2D> list;
+    List<Point> list;
 
-    public PolyLine(List<Point2D> list)
+    public PolyLine(List<Point> list)
     {
         this.list = new ArrayList<>(list);
     }
     public PolyLine()
     {
-        this(new ArrayList<Point2D>());
+        this(new ArrayList<Point>());
     }
 
-    public void add(Point2D... points)
+    public void add(Point... points)
     {
         this.list.addAll(List.of(points));
     }
