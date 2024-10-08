@@ -1,13 +1,18 @@
 package ru.lisenkova.spring;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-class Green implements Color{
+@Qualifier("green")
+public class Green implements Color{
+    @Autowired
+    @Qualifier("gYellow")
+    Color next;
 
-    @Override
     public Color next() {
-        return new GYellow();
+        return next;
     }
     @Override
     public String toString()

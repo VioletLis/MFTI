@@ -1,33 +1,33 @@
 package ru.lisenkova.spring;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Random {
-    List<Integer> lstRand = new ArrayList<>();
+    private List<Integer> lstRand = new ArrayList<>();
 
     public Random() {
     }
 
-    public int random()
-    {
-        int res;
-        res = (int) (Math.random()*101);
-        while (lstRand.contains(res))
-        {
-            if(lstRand.size()==101)
-            {
-                lstRand.clear();
-                break;
-            }
-            res = (int) (Math.random()*101);
+    int random(){
+        java.util.Random random = new java.util.Random();
+        int x =random.nextInt(0,100);
+        if(lstRand.size() == 101) {
+            lstRand.clear();
         }
-        lstRand.add(res);
-        return res;
+        while (lstRand.contains(x)){
+            x = random.nextInt(0,100);
+        }
+
+        lstRand.add(x);
+        return x;
     }
     public int getRandom()
     {
         return random();
     }
+
 
 }

@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-@Qualifier("red")
-public class Red implements Color{
+@Qualifier("bYellow")
+public class BYellow implements Color {
     @Autowired
-    @Qualifier("rYellow")
+    @Qualifier("black")
     Color next;
 
     public Color next() {
@@ -17,6 +17,6 @@ public class Red implements Color{
     @Override
     public String toString()
     {
-        return "красный";
+        return "желтый";
     }
 }

@@ -18,13 +18,15 @@ public class TestFactoryBeanProcessor implements BeanFactoryPostProcessor {
 
             DefaultListableBeanFactory context =
                     new DefaultListableBeanFactory();
-            BeanDefinition bdf = new GenericBeanDefinition();
+            GenericBeanDefinition bdf = new GenericBeanDefinition();
             bdf.setBeanClassName("ru.lisenkova.spring.Random");
             bdf.setScope("prototype");
             BeanDefinitionRegistry registry = (BeanDefinitionRegistry) beanFactory;
-            registry.registerBeanDefinition("random", BeanDefinitionBuilder.genericBeanDefinition(Random.class)
-                    .getBeanDefinition());
-           // context.registerBeanDefinition("random", bdf);
+           // registry.registerBeanDefinition("random", BeanDefinitionBuilder.rootBeanDefinition(Random.class)
+           //         .getBeanDefinition());
+            //context.registerBeanDefinition("random", bdf);
+            ((DefaultListableBeanFactory) beanFactory)
+                .registerBeanDefinition("random", bdf);
         }
 
     }

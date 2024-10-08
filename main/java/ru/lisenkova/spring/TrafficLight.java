@@ -1,15 +1,22 @@
 package ru.lisenkova.spring;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("TrafficLight")
 public class TrafficLight{
    // @Autowired
    @Autowired
-   @Qualifier("first")
-   Color color;
+   @Qualifier("red")
+   private Color color;
+   @Autowired
+   @Qualifier("red")
+   private Color base;
+   @Autowired
+   @Qualifier("black")
+   private Color waitingColor;
 
     public void setColor(Color color)
     {
@@ -18,8 +25,15 @@ public class TrafficLight{
     public void next()
     {
         System.out.println(color.toString());
-       setColor(color.next());
+        setColor(color.next());
 
-        color.next();
+    }
+    public void waiting(){
+        color=waitingColor;
+    }
+    @PostConstruct
+    public void on()
+    {
+        color = base;
     }
 }
