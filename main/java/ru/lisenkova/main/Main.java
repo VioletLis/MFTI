@@ -30,22 +30,7 @@ public class Main {
         empsSel.forEach(System.out::println);
         List<EmployeeBD> empsSelBD = DBSelector.findAll(EmployeeBD.class);
         empsSelBD.forEach(System.out::println);
-     //   Class.forName("org.h2.Driver");
-       // createDB();
-//        try(Connection connection = DriverManager.getConnection("jdbc:h2:.\\Office")) {
-//            //Statement stm = connection.createStatement();
-//            PreparedStatement statementprep = connection.prepareStatement("Select id, name from Employee where id>?");
-//            statementprep.setInt(1,2);
-//            //ResultSet results = stm.executeQuery("Select id, name from Employee where id>?"+2);
-//           ResultSet results = statementprep.executeQuery();
-//            while (results.next()){
-//                out.println(results.getInt("ID")+" "+results.getString("name"));
-//            }
-//        }
-//        catch (SQLException e)
-//        {
-//            throw new RuntimeException();
-//        }
+     
 
     }
 }
