@@ -1,57 +1,51 @@
 package ru.lisenkova.main;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.h2.jdbcx.JdbcDataSource;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import ru.lisenkova.annotations.*;
-import ru.lisenkova.spring.TrafficLight;
+import ru.lisenkova.bases.DBSelector;
 
-import java.sql.*;
+import javax.sql.DataSource;
+import java.util.List;
 
-import static java.lang.System.out;
-import static ru.lisenkova.bases.DBCreationScript.createDB;
-
+@SpringBootApplication
 public class Main {
-    public static void main(String[] args) throws Exception {
+    @Bean
+    DataSource dataSource()
+    {
+        JdbcDataSource jdbcDataSource = new JdbcDataSource();
+        jdbcDataSource.setURL("jdbc:h2:.\\\\Office");
+        return jdbcDataSource;
 
-//        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext("ru.lisenkova.spring");
-//        Object ob1 = ac.getBean("hellow");
-//        out.println(ob1);
-//        Object ob2 = ac.getBean("random");
-//        out.println(ob2);
-//        Object ob3=ac.getBean("random");
-//        out.println(ob3);
-//        Object ob4=ac.getBean("date");
-//        out.println(ob4);
-//        Object ob5=ac.getBean("rule",7);
-//        out.println(ob5);
-//        TrafficLight tr = ac.getBean(TrafficLight.class);
-//        tr.next();
-//        tr.next();
-//        tr.next();
-//        tr.next();
-//        tr.waiting();
-//        tr.next();
-//        tr.next();
-//        tr.on();
-//        tr.next();
-//        tr.next();
-//        tr.next();
-//        //-------------------------database
-        Class.forName("org.h2.Driver");
-        createDB();
-        try(Connection connection = DriverManager.getConnection("jdbc:h2:.\\Office")) {
-            //Statement stm = connection.createStatement();
-            PreparedStatement statementprep = connection.prepareStatement("Select id, name from Employee where id>?");
-            statementprep.setInt(1,2);
-            //ResultSet results = stm.executeQuery("Select id, name from Employee where id>?"+2);
-           ResultSet results = statementprep.executeQuery();
-            while (results.next()){
-                out.println(results.getInt("ID")+" "+results.getString("name"));
-            }
-        }
-        catch (SQLException e)
-        {
-            throw new RuntimeException();
-        }
+    }
+    public static void main(String[] args) throws Exception {
+        ApplicationContext ctx = SpringApplication.run(Main.class);
+        EmployeeRepo repo = ctx.getBean(EmployeeRepo.class);
+        List<EmployeeBD> emps = repo.findAll();
+        emps.forEach(System.out::println);
+        List<Employee> empsSel = DBSelector.findAll(Employee.class);
+        empsSel.forEach(System.out::println);
+        List<EmployeeBD> empsSelBD = DBSelector.findAll(EmployeeBD.class);
+        empsSelBD.forEach(System.out::println);
+     //   Class.forName("org.h2.Driver");
+       // createDB();
+//        try(Connection connection = DriverManager.getConnection("jdbc:h2:.\\Office")) {
+//            //Statement stm = connection.createStatement();
+//            PreparedStatement statementprep = connection.prepareStatement("Select id, name from Employee where id>?");
+//            statementprep.setInt(1,2);
+//            //ResultSet results = stm.executeQuery("Select id, name from Employee where id>?"+2);
+//           ResultSet results = statementprep.executeQuery();
+//            while (results.next()){
+//                out.println(results.getInt("ID")+" "+results.getString("name"));
+//            }
+//        }
+//        catch (SQLException e)
+//        {
+//            throw new RuntimeException();
+//        }
 
     }
 }
