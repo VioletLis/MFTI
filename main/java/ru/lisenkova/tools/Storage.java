@@ -1,19 +1,16 @@
 package ru.lisenkova.tools;
 
-import java.util.Optional;
-import java.util.function.Supplier;
-
 public class Storage <T> implements MySupplier<T>
 {
     private T object;
     private MySupplier<T> mySupplier;
-    private Storage(T t)
+    private Storage(MySupplier<T> tMySupplier)
     {
-        this.object = t;
+        this.mySupplier = tMySupplier;
     }
 
-    public static <V> Storage<V> create(V v){
-        return new Storage<>(v);
+    public static <V> Storage<V> create(MySupplier<V> tMySupplier){
+        return new Storage<>(tMySupplier);
 
     }
     @Override
